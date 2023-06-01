@@ -3,7 +3,6 @@
     <PropertyGroup>
         <OutputType>WinExe</OutputType>
         <TargetFramework>net6.0-windows</TargetFramework>
-        <Nullable>enable</Nullable>
         <UseWindowsForms>true</UseWindowsForms>
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
@@ -30,8 +29,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\Ipc\IpcClient\IpcClient.csproj" />
-        <ProjectReference Include="..\..\Plugin\Commons\Plugin.csproj" />
+        <ProjectReference Include="$(EnlistmentRoot)\Ipc\IpcClient\IpcClient.csproj" />
+        <ProjectReference Include="$(EnlistmentRoot)\Plugin\Commons\Plugin.csproj" />
     </ItemGroup>
 
     <ItemGroup>

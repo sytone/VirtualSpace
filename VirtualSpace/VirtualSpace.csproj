@@ -2,15 +2,12 @@
 
     <PropertyGroup>
         <OutputType>WinExe</OutputType>
-        <TargetFrameworks>net6.0-windows</TargetFrameworks>
-        <Nullable>enable</Nullable>
         <UseWPF>true</UseWPF>
         <StartupObject>VirtualSpace.Program</StartupObject>
         <UseWindowsForms>True</UseWindowsForms>
         <ApplicationIcon>Resources\Logo_2.ico</ApplicationIcon>
         <ApplicationManifest>app.manifest</ApplicationManifest>
         <Platforms>AnyCPU;x64;x86</Platforms>
-        <LangVersion>9</LangVersion>
         <CsWinRTEnabled>false</CsWinRTEnabled>
     </PropertyGroup>
 
@@ -39,57 +36,33 @@
         </Compile>
     </ItemGroup>
 
-    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-windows|AnyCPU'">
-        <NoWarn>1701;1702;CA1416;CS8618</NoWarn>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-windows|AnyCPU'">
-        <NoWarn>1701;1702;CA1416;CS8618</NoWarn>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-windows|x64'">
-        <NoWarn>1701;1702;CA1416;CS8618</NoWarn>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-windows|x64'">
-        <NoWarn>1701;1702;CA1416;CS8618</NoWarn>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-windows|x86'">
-        <NoWarn>1701;1702;CA1416;CS8618</NoWarn>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-windows|x86'">
-        <NoWarn>1701;1702;CA1416;CS8618</NoWarn>
-    </PropertyGroup>
-
     <ItemGroup>
         <Content Include="Resources\Logo_2.ico" />
     </ItemGroup>
 
     <ItemGroup>
-        <EmbeddedResource Include="..\VirtualDesktop\VirtualDesktop10\bin\Release\net6.0-windows\VirtualDesktop10.dll" Link="Resources\VirtualDesktop10.dll" />
-        <EmbeddedResource Include="..\VirtualDesktop\VirtualDesktop11\bin\Release\net6.0-windows\VirtualDesktop11.dll" Link="Resources\VirtualDesktop11.dll" />
-        <EmbeddedResource Include="..\VirtualDesktop\VirtualDesktop11_21H2\bin\Release\net6.0-windows\VirtualDesktop11_21H2.dll" Link="Resources\VirtualDesktop11_21H2.dll" />
+        <EmbeddedResource Include="$(EnlistmentRoot)\bin\VirtualDesktop10\$(Platform)\$(Configuration)\$(TargetFramework)\VirtualDesktop10.dll" Link="Resources\VirtualDesktop10.dll" />
+        <EmbeddedResource Include="$(EnlistmentRoot)\bin\VirtualDesktop11\$(Platform)\$(Configuration)\$(TargetFramework)\VirtualDesktop11.dll" Link="Resources\VirtualDesktop11.dll" />
+        <EmbeddedResource Include="$(EnlistmentRoot)\bin\VirtualDesktop11_21H2\$(Platform)\$(Configuration)\$(TargetFramework)\VirtualDesktop11_21H2.dll" Link="Resources\VirtualDesktop11_21H2.dll" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\VirtualDesktop\VirtualDesktop10\VirtualDesktop10.csproj">
+        <ProjectReference Include="$(EnlistmentRoot)\VirtualDesktop\VirtualDesktop10\VirtualDesktop10.csproj">
             <Aliases>VirtualDesktop10</Aliases>
             <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
         </ProjectReference>
-        <ProjectReference Include="..\VirtualDesktop\VirtualDesktop11\VirtualDesktop11.csproj">
+        <ProjectReference Include="$(EnlistmentRoot)\VirtualDesktop\VirtualDesktop11\VirtualDesktop11.csproj">
             <Aliases>VirtualDesktop11</Aliases>
             <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
         </ProjectReference>
-        <ProjectReference Include="..\VirtualDesktop\VirtualDesktop11_21H2\VirtualDesktop11_21H2.csproj">
+        <ProjectReference Include="$(EnlistmentRoot)\VirtualDesktop\VirtualDesktop11_21H2\VirtualDesktop11_21H2.csproj">
             <Aliases>VirtualDesktop11_21H2</Aliases>
             <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
         </ProjectReference>
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\WPF\ControlPanel\ControlPanel.csproj" />
+        <ProjectReference Include="$(EnlistmentRoot)\WPF\ControlPanel\ControlPanel.csproj" />
     </ItemGroup>
 
     <Target Name="DeletePdb" AfterTargets="Publish">

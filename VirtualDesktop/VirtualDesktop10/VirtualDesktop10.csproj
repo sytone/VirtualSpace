@@ -1,10 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFrameworks>net6.0-windows</TargetFrameworks>
-        <Nullable>enable</Nullable>
         <CsWinRTEnabled>false</CsWinRTEnabled>
-        <LangVersion>9</LangVersion>
     </PropertyGroup>
 
     <ItemGroup Condition=" '$(TargetFramework)' == 'net5.0-windows' Or '$(TargetFramework)' == 'net6.0-windows' ">
@@ -12,7 +9,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\Bridge\Bridge.csproj" />
+        <ProjectReference Include="$(EnlistmentRoot)\Bridge\Bridge.csproj" />
     </ItemGroup>
 
 </Project>

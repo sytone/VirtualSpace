@@ -2,8 +2,6 @@
 
     <PropertyGroup>
         <OutputType>WinExe</OutputType>
-        <TargetFrameworks>net6.0-windows</TargetFrameworks>
-        <Nullable>enable</Nullable>
         <UseWPF>true</UseWPF>
         <CsWinRTEnabled>false</CsWinRTEnabled>
         <LangVersion>11</LangVersion>
@@ -24,9 +22,9 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\Configuration\Configuration.csproj" />
-        <ProjectReference Include="..\..\Ipc\IpcServer\IpcServer.csproj" />
-        <ProjectReference Include="..\..\VirtualDesktopWrapper\VirtualDesktopWrapper.csproj" />
+        <ProjectReference Include="$(EnlistmentRoot)\Configuration\Configuration.csproj" />
+        <ProjectReference Include="$(EnlistmentRoot)\Ipc\IpcServer\IpcServer.csproj" />
+        <ProjectReference Include="$(EnlistmentRoot)\VirtualDesktopWrapper\VirtualDesktopWrapper.csproj" />
     </ItemGroup>
 
     <ItemGroup>

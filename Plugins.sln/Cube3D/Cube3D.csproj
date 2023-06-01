@@ -3,7 +3,6 @@
     <PropertyGroup>
         <OutputType>WinExe</OutputType>
         <TargetFrameworks>net6.0-windows10.0.20348.0;net6.0-windows10.0.22000.0;</TargetFrameworks>
-        <LangVersion>9</LangVersion>
         <UseWPF>true</UseWPF>
         <CsWinRTEnabled>false</CsWinRTEnabled>
         <ApplicationManifest>app.manifest</ApplicationManifest>
@@ -44,9 +43,9 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\Ipc\IpcClient\IpcClient.csproj" />
-        <ProjectReference Include="..\..\Plugin\Commons\Plugin.csproj" />
-        <ProjectReference Include="..\ScreenCapture\ScreenCapture.csproj" />
+        <ProjectReference Include="$(EnlistmentRoot)\Ipc\IpcClient\IpcClient.csproj" />
+        <ProjectReference Include="$(EnlistmentRoot)\Plugin\Commons\Plugin.csproj" />
+        <ProjectReference Include="$(EnlistmentRoot)\Plugins.sln\ScreenCapture\ScreenCapture.csproj" />
     </ItemGroup>
 
     <ItemGroup>

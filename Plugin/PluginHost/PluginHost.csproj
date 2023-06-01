@@ -1,14 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFrameworks>net6.0-windows</TargetFrameworks>
-        <Nullable>enable</Nullable>
-        <LangVersion>9</LangVersion>
-    </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\Logger\Logger.csproj" />
-      <ProjectReference Include="..\Commons\Plugin.csproj" />
+      <ProjectReference Include="$(EnlistmentRoot)\Logger\Logger.csproj" />
+      <ProjectReference Include="$(EnlistmentRoot)\Plugin\Commons\Plugin.csproj" />
     </ItemGroup>
 
 </Project>

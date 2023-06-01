@@ -1,0 +1,55 @@
+﻿<!--
+  This file is imported by any project that imports Microsoft.Common.targets
+  More details on how to customize the build can be found at https://docs.microsoft.com/en-us/visualstudio/msbuild/customize-your-build?view=vs-2022
+-->
+<Project>
+
+    <!--
+        ********************************************************************************
+        >>> .Net Framework validations
+        ********************************************************************************
+
+        Validate that the Target Framework is .Net Core 3.1, .Net Standard 2.1, .Net 5.0 or .Net 6.0
+        It can be overiden by adding <DisableTargetFrameworkValidation>true</DisableTargetFrameworkValidation>
+        to the project with reason as a comment in XML.
+    -->
+    <Choose>
+        <When Condition=" '$(TargetFramework)'=='net6.0-windows' ">
+            <PropertyGroup>
+                <ValidTargetFramework>true</ValidTargetFramework>
+            </PropertyGroup>
+        </When>
+        <When Condition=" '$(TargetFramework)'=='net6.0' ">
+            <PropertyGroup>
+                <ValidTargetFramework>true</ValidTargetFramework>
+            </PropertyGroup>
+        </When>
+        <When Condition=" '$(EnableMultiTargetFramework)'=='true' ">
+            <PropertyGroup>
+                <ValidTargetFramework>true</ValidTargetFramework>
+            </PropertyGroup>
+        </When>
+        <!-- This handles projects that do not care about version or are old style like the SQL based msbuild projects. -->
+        <When Condition=" '$(TargetFramework)'=='' ">
+            <PropertyGroup>
+                <ValidTargetFramework>true</ValidTargetFramework>
+            </PropertyGroup>
+        </When>
+        <Otherwise>
+            <PropertyGroup>
+                <ValidTargetFramework>false</ValidTargetFramework>
+            </PropertyGroup>
+        </Otherwise>
+    </Choose>
+    <Target Name="ValidateTargetFrameworkVersion" BeforeTargets="CoreBuild">
+            <Message Text="======TextTemplateTransform begin======" Importance="High" />
+
+        <Message Condition="'$(DisableTargetFrameworkValidation)' == 'true'" Text="%1B[33mSkipping TargetFramework Validation, version used is:%1B[0m %1B[1;91m$(TargetFramework)%1B[0m" />
+        <Message Condition="'$(ValidTargetFramework)' == 'true'" Text="%1B[32mValid Framework Chosen:%1B[0m %1B[1;92m$(TargetFramework)%1B[0m" />
+        <Message Condition="'$(ValidTargetFramework)' == 'false' And '$(DisableTargetFrameworkValidation)' != 'true'" Text="%1B[31mInvalid Framework Chosen:%1B[0m] $(TargetFramework)" />
+        <Message Condition="'$(EnableMultiTargetFramework)' == 'true'" Text="%1B[32mBuilding Multi Targeted Framework project:%1B[0m %1B[1;92m$(ProjectName), versions are: $(TargetFrameworks)%1B[0m" />
+        <Error Condition="'$(DisableTargetFrameworkValidation)' == 'true' And '$(ValidTargetFramework)' == 'true'" Text="[Framework Validation] Using a valid target framework '$(TargetFramework)' remove 'DisableTargetFrameworkValidation' property from project." />
+        <Error Condition="'$(ValidTargetFramework)' == 'false' And '$(DisableTargetFrameworkValidation)' != 'true'" Text="[Framework Validation] TargetFramework must be one of 'netcoreapp3.1;netstandard2.0;netstandard2.1;net5.0' but is '$(TargetFramework)'" />
+    </Target>
+
+</Project>

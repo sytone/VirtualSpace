@@ -1,10 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFrameworks>net6.0-windows</TargetFrameworks>
-        <Nullable>enable</Nullable>
         <UseWindowsForms>True</UseWindowsForms>
-        <LangVersion>9</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
@@ -13,7 +10,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Logger\Logger.csproj" />
+      <ProjectReference Include="$(EnlistmentRoot)\Logger\Logger.csproj" />
     </ItemGroup>
 
 </Project>

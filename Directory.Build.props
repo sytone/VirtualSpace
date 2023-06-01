@@ -1,0 +1,99 @@
+﻿<!--
+    This file is imported by any project that imports Microsoft.Common.props
+-->
+<Project>
+    <PropertyGroup>
+        <!-- Use this property for convenience to build a path starting from the root of the repository. -->
+        <EnlistmentRoot>$(MSBuildThisFileDirectory.TrimEnd('\\'))</EnlistmentRoot>
+
+        <!-- Default configuration & platform -->
+        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+
+        <!-- Default projects to build x64 only, not "AnyCPU" (which usually means x86). -->
+        <Platform Condition=" '$(Platform)' == '' ">x64</Platform>
+        <Platforms Condition=" '$(Platforms)' == '' ">x64</Platforms>
+        <PlatformTarget Condition=" '$(PlatformTarget)' == '' ">x64</PlatformTarget>
+
+        <TargetFrameworks>net6.0-windows</TargetFrameworks>
+
+        <BaseOutputPath>$(EnlistmentRoot)\bin\$(MSBuildProjectName)</BaseOutputPath>
+        <BaseIntermediateOutputPath>$(EnlistmentRoot)\obj\$(MSBuildProjectFile)</BaseIntermediateOutputPath>
+
+        <!--
+            Start with .NET SDK 6.0.200, the SDK writes reference assemblies to the IntermediateOutputPath instead of the OutDir.
+            This breaks our build.  Setting the following property restores the previous behavior.
+            https://docs.microsoft.com/en-us/dotnet/core/compatibility/sdk/6.0/write-reference-assemblies-to-obj
+        -->
+        <ProduceReferenceAssemblyInOutDir>true</ProduceReferenceAssemblyInOutDir>
+
+        <!--
+            The SatelliteResourceLanguages property lets you specify which languages you want to preserve
+            satellite resource assemblies for during build and publish. Many NuGet packages include
+            localized resource satellite assemblies in the main package. For projects that reference these
+            NuGet packages that don't require localized resources, the localized assemblies can
+            unnecessarily inflate the build and publish output size. By adding the
+            SatelliteResourceLanguages property to your project file, only localized assemblies for the
+            languages you specify will be included in the build and publish output.
+
+            Reference: https://learn.microsoft.com/en-us/dotnet/core/project-sdk/msbuild-props#satelliteresourcelanguages
+        -->
+        <SatelliteResourceLanguages>en-US,zh-Hans</SatelliteResourceLanguages>
+
+        <!-- Warnings as error by default, can be overriden in individual projects. -->
+        <TreatWarningsAsErrors Condition=" '$(TreatWarningsAsErrors)' == '' ">false</TreatWarningsAsErrors>
+
+        <!-- Warnings to not treat as errors -->
+        <!-- <WarningsNotAsErrors></WarningsNotAsErrors> -->
+
+        <!--
+            Default C# language version.
+
+            With the move to .Net 6.0 we can now support Language Version 10.0 for c#. C# 10 is supported only on .NET 6 and newer versions. C# 9 is
+            supported only on .NET 5 and newer versions. C# 8.0 is supported only on .NET Core 3.x and newer versions.
+
+            To See details on what is new in version 10.0 of C# , please see https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-10
+
+            For more details, see https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/configure-language-version
+        -->
+        <LangVersion>10.0</LangVersion>
+        <Nullable>enable</Nullable>
+
+        <!--
+            Implicit Usings
+
+            To reduce the boiler plate code we are adding implicit usings, this allows us to automatically include assemblies that
+            are common to all projects. Update the ItemGroup below to add more implicit usings.
+
+            If the project is not able to support this add <ImplicitUsings>disable</ImplicitUsings> in the main PropertyGroup.
+
+            For more details, see https://docs.microsoft.com/en-us/dotnet/core/project-sdk/msbuild-props#implicitusings
+        -->
+        <ImplicitUsings>disable</ImplicitUsings>
+
+        <!--
+            Disable NU1603 since warnings are treated as errors and this warning fires for backward compatible nuget dependencies.
+            Old package versions eventually get cleaned up.
+        -->
+        <NoWarn>$(NoWarn);1701;1702;CA1416;CS8618</NoWarn>
+    </PropertyGroup>
+
+    <!--
+    ********************************************************************************
+    >>> Implicit Usings Includes
+    ********************************************************************************
+    -->
+    <ItemGroup Condition=" '$(ImplicitUsings)' == 'enable' ">
+        <!--
+        CA1305: Specify IFormatProvider
+            Satisfy rule CA1305 by passing an interpolated string to Invariant. This makes the using
+            a static global so engineers only need to use Invariant and do not have to add using.
+
+            string example3 = Invariant($"Hello {name}");
+        -->
+        <Using Include="System.FormattableString" Static="true" />
+    </ItemGroup>
+    <!-- <ItemGroup Condition=" '$(MSBuildProjectExtension)' != '.zfproj' ">
+        <PackageReference Include="Dawn.Guard" />
+    </ItemGroup> -->
+
+</Project>
